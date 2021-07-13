@@ -9,6 +9,7 @@
           <field name="name"/>
           <field name="value"/>
           <field name="value2"/>
+          <field name="text"/>
         </tree>
       </field>
     </record>
