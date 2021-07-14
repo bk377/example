@@ -13,6 +13,7 @@ class example(models.Model):
     value2 = fields.Float(compute="_value_pc", store=True)
     description = fields.Text()
     text = fields.Char(compute="_compute_text")
+    text2 = fields.Char()
 
     @api.depends('name')
     def _compute_text(self):
