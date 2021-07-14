@@ -14,6 +14,7 @@ class example(models.Model):
     description = fields.Text()
     text = fields.Char(compute="_compute_text")
     text2 = fields.Char()
+    text3 = fields.Char()
 
     @api.depends('name')
     def _compute_text(self):
