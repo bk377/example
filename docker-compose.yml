@@ -11,7 +11,6 @@ services:
       - "8050:8069"
     volumes:
       - odoo-web-data:/var/lib/odoo
-      - /home/odoo14addons:/mnt/extra-addons
   db:
     image: postgres:10
     environment:
