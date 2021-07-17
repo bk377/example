@@ -4,6 +4,7 @@ USER root
 
 COPY . /mnt/extra-addons/example
 COPY requirements.txt requirements.txt
+COPY moduler_updater.py moduler_updater.py
 
 USER odoo
 
