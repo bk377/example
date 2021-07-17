@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os
+import sys
 import odoo
 from odoo.tools.parse_version import parse_version
 from odoo import api, SUPERUSER_ID
@@ -38,14 +39,14 @@ def main():
         for module_name in module_version:
             mod = known_mods_names.get(module_name)
             if mod and parse_version(module_version[module_name]) > parse_version(mod.latest_version):
-                update_list.append(module_name)
+                update_list.append({module_name: 1})
 
     odoo.addons.__path__ = odoo_path
 
     if update_list:
-        odoo.tools.config['update'] = ','.join(update_list)
+        odoo.tools.config['update'] = update_list
         odoo.tools.config['db_name'] = db_name
-        rc = odoo.service.server.start(preload=[odoo.tools.config['db_name']], stop=True)
+        rc = odoo.service.server.start(preload=[db_name], stop=True)
         sys.exit(rc)
 
 if __name__ == '__main__':
