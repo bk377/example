@@ -13,9 +13,7 @@ RUN python3 -m pip install --upgrade pip && python3 -m pip install -r requiremen
 ENV DB_NAME test
 
 ENTRYPOINT ["/entrypoint.sh"]
-#CMD ["python3", "moduler_updater.py", "&&", "odoo"]
-CMD ["odoo"]
+CMD ["python3", "moduler_updater.py", ";", "odoo"]
 
-RUN python3 moduler_updater.py
 
 
