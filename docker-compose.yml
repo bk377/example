@@ -1,5 +1,14 @@
 version: '2'
 services:
+  db:
+    image: postgres:10
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - odoo-db-data:/var/lib/postgresql/data/pgdata
   web:
     image: odooexample 
     container_name: odoo_example
@@ -13,15 +22,6 @@ services:
       - odoo-web-data:/var/lib/odoo
     environment:
       WAIT_HOSTS: db:5432
-  db:
-    image: postgres:10
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_PASSWORD=odoo
-      - POSTGRES_USER=odoo
-      - PGDATA=/var/lib/postgresql/data/pgdata
-    volumes:
-      - odoo-db-data:/var/lib/postgresql/data/pgdata
 volumes:
   odoo-web-data:
   odoo-db-data:
