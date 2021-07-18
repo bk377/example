@@ -39,12 +39,12 @@ def main():
         for module_name in module_version:
             mod = known_mods_names.get(module_name)
             if mod and parse_version(module_version[module_name]) > parse_version(mod.latest_version):
-                update_list.append({module_name: 1})
+                update_list.append(module_name)
 
     odoo.addons.__path__ = odoo_path
 
     if update_list:
-        odoo.tools.config['update'] = update_list
+        odoo.tools.config['update'] = { u: 1 for u in update_list }
         odoo.tools.config['db_name'] = db_name
         rc = odoo.service.server.start(preload=[db_name], stop=True)
         sys.exit(rc)
