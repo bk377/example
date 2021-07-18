@@ -11,6 +11,8 @@ services:
       - "8050:8069"
     volumes:
       - odoo-web-data:/var/lib/odoo
+    environment:
+      WAIT_HOSTS: db:5432
   db:
     image: postgres:10
     environment:
