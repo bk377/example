@@ -2,11 +2,13 @@ version: '2'
 services:
   db:
     image: postgres:10
+    restart: always
     environment:
       - POSTGRES_DB=postgres
       - POSTGRES_PASSWORD=odoo
       - POSTGRES_USER=odoo
       - PGDATA=/var/lib/postgresql/data/pgdata
+      - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - odoo-db-data:/var/lib/postgresql/data/pgdata
   web:
