@@ -18,6 +18,7 @@ class example(models.Model):
     item = fields.Char()
     film = fields.Char()
     item2 = fields.Char()
+    racxa = fields.Char()
 
     @api.depends('name')
     def _compute_text(self):
