@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- weather.location views -->
+        <record id="view_weather_location_tree" model="ir.ui.view">
+            <field name="name">weather.location.tree</field>
+            <field name="model">weather.location</field>
+            <field name="arch" type="xml">
+                <tree string="Weather Locations">
+                    <field name="name"/>
+                    <field name="latitude"/>
+                    <field name="longitude"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_weather_location_form" model="ir.ui.view">
+            <field name="name">weather.location.form</field>
+            <field name="model">weather.location</field>
+            <field name="arch" type="xml">
+                <form string="Weather Location">
+                    <header>
+                        <button name="get_weather_data" type="object" string="Get Current Weather" class="oe_highlight"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="latitude"/>
+                            <field name="longitude"/>
+                        </group>
+                        <notebook>
+                            <page string="Weather History">
+                                <field name="weather_data_ids"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- weather.data views -->
+        <record id="view_weather_data_tree" model="ir.ui.view">
+            <field name="name">weather.data.tree</field>
+            <field name="model">weather.data</field>
+            <field name="arch" type="xml">
+                <tree string="Weather Data">
+                    <field name="location_id"/>
+                    <field name="time"/>
+                    <field name="temperature"/>
+                    <field name="windspeed"/>
+                    <field name="weathercode"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_weather_data_form" model="ir.ui.view">
+            <field name="name">weather.data.form</field>
+            <field name="model">weather.data</field>
+            <field name="arch" type="xml">
+                <form string="Weather Data">
+                    <sheet>
+                        <group>
+                            <field name="location_id"/>
+                            <field name="time"/>
+                            <field name="temperature"/>
+                            <field name="windspeed"/>
+                            <field name="winddirection"/>
+                            <field name="weathercode"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Actions and Menus -->
+        <record id="action_weather_location" model="ir.actions.act_window">
+            <field name="name">Weather Locations</field>
+            <field name="res_model">weather.location</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_weather_root" name="Weather" sequence="10" parent="example.menu_root"/>
+        <menuitem id="menu_weather_locations" name="Locations" parent="menu_weather_root" action="action_weather_location" sequence="10"/>
+
+    </data>
+</odoo>
