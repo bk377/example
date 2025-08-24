@@ -38,7 +38,7 @@ def main():
 
         for module_name in module_version:
             mod = known_mods_names.get(module_name)
-            if mod and parse_version(module_version[module_name]) > parse_version(mod.latest_version):
+            if mod and mod.state in ('installed', 'to upgrade') and parse_version(module_version[module_name]) > parse_version(mod.installed_version):
                 update_list.append(module_name)
 
     odoo.addons.__path__ = odoo_path
