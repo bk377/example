@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from odoo import models, fields, api
+from odoo.exceptions import UserError
 
 class WeatherReport(models.TransientModel):
     _name = 'weather.report'
@@ -13,22 +14,23 @@ class WeatherReport(models.TransientModel):
     @api.depends('location_id.weather_data_ids.temperature')
     def _compute_stats(self):
         for report in self:
+            report.avg_temp = 0
+            report.min_temp = 0
+            report.max_temp = 0
+
             weather_data = report.location_id.weather_data_ids
-            if weather_data:
-                temperatures = weather_data.mapped('temperature')
-                if temperatures:
-                    report.avg_temp = sum(temperatures) / len(temperatures)
-                    report.min_temp = min(temperatures)
-                    report.max_temp = max(temperatures)
-                else:
-                    report.avg_temp = 0
-                    report.min_temp = 0
-                    report.max_temp = 0
-            else:
-                report.avg_temp = 0
-                report.min_temp = 0
-                report.max_temp = 0
+            if not weather_data:
+                continue
+
+            temperatures = weather_data.mapped('temperature')
+            if temperatures:
+                report.avg_temp = sum(temperatures) / len(temperatures)
+                report.min_temp = min(temperatures)
+                report.max_temp = max(temperatures)
 
     def print_report(self):
         self.ensure_one()
-        return self.env.ref('example.action_report_weather').report_action(self)
+        try:
+            return self.env.ref('example.action_report_weather').report_action(self)
+        except ValueError:
+            raise UserError("The report action 'example.action_report_weather' could not be found.")
