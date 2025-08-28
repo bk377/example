@@ -51,5 +51,18 @@ class TestWeatherReport(TransactionCase):
             'location_id': self.test_location.id,
         })
         action = report_wizard.print_report()
-        self.assertIn('report_type', action)
-        self.assertEqual(action['report_type'], 'ir.actions.report')
+        self.assertIn('type', action)
+        self.assertEqual(action['type'], 'ir.actions.report')
+
+    def test_report_no_data(self):
+        location_no_data = self.WeatherLocation.create({
+            'name': 'No Data City',
+            'latitude': 0.0,
+            'longitude': 0.0,
+        })
+        report_wizard = self.WeatherReport.create({
+            'location_id': location_no_data.id,
+        })
+        self.assertEqual(report_wizard.min_temp, 0)
+        self.assertEqual(report_wizard.max_temp, 0)
+        self.assertEqual(report_wizard.avg_temp, 0)
