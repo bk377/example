@@ -27,5 +27,7 @@
         'security/ir.model.access.csv',
         'views/views.xml',
         'views/weather_views.xml',
+        'views/weather_report_views.xml',
+        'views/weather_report_template.xml',
     ],
 }

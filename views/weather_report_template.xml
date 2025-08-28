@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="report_weather">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <h2>Weather Report for <span t-field="o.location_id.name"/></h2>
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3>Statistics</h3>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Average Temperature</strong></td>
+                                            <td><span t-field="o.avg_temp"/> °C</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Min Temperature</strong></td>
+                                            <td><span t-field="o.min_temp"/> °C</td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Max Temperature</strong></td>
+                                            <td><span t-field="o.max_temp"/> °C</td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <p>Latest weather data:</p>
+                            <table class="table table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Time</th>
+                                        <th>Temperature (°C)</th>
+                                        <th>Wind Speed (km/h)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <t t-foreach="o.location_id.weather_data_ids" t-as="data">
+                                        <tr>
+                                            <td><span t-field="data.time"/></td>
+                                            <td><span t-field="data.temperature"/></td>
+                                            <td><span t-field="data.windspeed"/></td>
+                                        </tr>
+                                    </t>
+                                </tbody>
+                            </table>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+    </data>
+</odoo>
