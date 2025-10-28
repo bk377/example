@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_weather_report_wizard" model="ir.ui.view">
+            <field name="name">weather.report.wizard</field>
+            <field name="model">weather.report</field>
+            <field name="arch" type="xml">
+                <form string="Weather Report">
+                    <group>
+                        <field name="location_id"/>
+                    </group>
+                    <footer>
+                        <button name="print_report" type="object" string="Print Report" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_weather_report" model="ir.actions.act_window">
+            <field name="name">Weather Report</field>
+            <field name="res_model">weather.report</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_report_weather" model="ir.actions.report">
+            <field name="name">Weather Report</field>
+            <field name="model">weather.report</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">example.report_weather</field>
+            <field name="report_file">example.report_weather</field>
+        </record>
+
+        <menuitem id="menu_weather_report"
+            name="Weather Report"
+            parent="menu_weather_root"
+            action="action_weather_report"
+            sequence="20"/>
+
+    </data>
+</odoo>
